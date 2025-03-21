@@ -1,4 +1,4 @@
 # BST Sort
-There are various ways to do sorting. I feel that I didn't get much intrested in Sorting algorithms ( Bubble, Insertion, Selection, Quick, Merge ) which are mostly used, only because of the reason that they are mostly implemented through Arrays.<br><br>
+There are various ways to do sorting. I feel that I didn't get much interested in Sorting algorithms ( Bubble, Insertion, Selection, Quick, Merge ) which are mostly used, only because of the reason that they are mostly implemented through Arrays.<br><br>
 BST sort is a Sorting Algorithm which is built using the principle : Inorder traversal of a Binary Search Tree leads to a sorted order. But, we can't insert duplicate elements into the BST like in the Array ? Hence, I tried to resolve it using a new element in the structure - "count" to count the number of occurances of the element.<br><br>
 The time complexity of the Algorithm would O(n*log(n)) in the Best and Average cases and leads to O(n^2) in the Worst case. I feel that we can resolve this worst case time complexity also to O(n*log(n)) if we use an AVL tree instead of a BST for the same process.
