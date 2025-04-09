@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 struct node
 {
     int key;
+    int value;
     struct node *left;
     struct node *right;
 };
@@ -25,25 +25,25 @@ struct node *splay_left(struct node *head)
     return ptr2;
 }
 
-struct node *bst_insert(int k, struct node *head)
+struct node *bst_insert(int k, int v, struct node *head)
 {
     if (head == NULL)
     {
         struct node *temp = malloc(sizeof(struct node));
         temp->key = k;
+        temp->value = v;
         temp->left = NULL;
         temp->right = NULL;
         return temp;
     }
     else if (k > head->key)
     {
-        head->right = bst_insert(k, head->right);
+        head->right = bst_insert(k, v, head->right);
     }
     else if (k < head->key)
     {
-        head->left = bst_insert(k, head->left);
+        head->left = bst_insert(k, v, head->left);
     }
-
     if (head->key != k)
     {
         if (head->right != NULL && head->right->key == k)
@@ -55,13 +55,12 @@ struct node *bst_insert(int k, struct node *head)
             head = splay_right(head);
         }
     }
-
     return head;
 }
 
-struct node *insert(int k, struct node *head)
+struct node *insert(int k, int v, struct node *head)
 {
-    head = bst_insert(k, head);
+    head = bst_insert(k, v, head);
     return head;
 }
 
@@ -69,7 +68,7 @@ void preorder(struct node *head)
 {
     if (head != NULL)
     {
-        printf("%d\n", head->key);
+        printf("%d %d\n", head->key, head->value);
         preorder(head->left);
         preorder(head->right);
     }
@@ -77,25 +76,17 @@ void preorder(struct node *head)
 
 int main()
 {
-    struct node *head = NULL;
-    int i;
-    int n = 100000; // number of nodes
-    srand(time(0)); // seed random
-
-    clock_t start, end;
-    double cpu_time_used;
-
-    start = clock();
-
-    for (i = 0; i < n; i++)
-    {
-        int key = rand();
-        head = insert(key, head);
-    }
-
-    end = clock();
-
-    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-    printf("\nTime taken to insert %d nodes: %f seconds\n", n, cpu_time_used);
-    return 0;
+    struct node *head = malloc(sizeof(struct node));
+    head = NULL;
+    head = insert(10, 640, head);
+    head = insert(5, 100, head);
+    head = insert(3, 150, head);
+    head = insert(4, 125, head);
+    head = insert(7, 700, head);
+    head = insert(11, 500, head);
+    head = insert(9, 230, head);
+    head = insert(2, 560, head);
+    head = insert(6, 580, head);
+    head = insert(8, 780, head);
+    preorder(head);
 }
