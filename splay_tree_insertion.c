@@ -4,7 +4,6 @@
 struct node
 {
     int key;
-    int value;
     struct node *left;
     struct node *right;
 };
@@ -25,24 +24,23 @@ struct node *splay_left(struct node *head)
     return ptr2;
 }
 
-struct node *bst_insert(int k, int v, struct node *head)
+struct node *bst_insert(int k, struct node *head)
 {
     if (head == NULL)
     {
         struct node *temp = malloc(sizeof(struct node));
         temp->key = k;
-        temp->value = v;
         temp->left = NULL;
         temp->right = NULL;
         return temp;
     }
     else if (k > head->key)
     {
-        head->right = bst_insert(k, v, head->right);
+        head->right = bst_insert(k, head->right);
     }
     else if (k < head->key)
     {
-        head->left = bst_insert(k, v, head->left);
+        head->left = bst_insert(k, head->left);
     }
     if (head->key != k)
     {
@@ -58,9 +56,9 @@ struct node *bst_insert(int k, int v, struct node *head)
     return head;
 }
 
-struct node *insert(int k, int v, struct node *head)
+struct node *insert(int k, struct node *head)
 {
-    head = bst_insert(k, v, head);
+    head = bst_insert(k, head);
     return head;
 }
 
@@ -68,7 +66,7 @@ void preorder(struct node *head)
 {
     if (head != NULL)
     {
-        printf("%d %d\n", head->key, head->value);
+        printf("%d ", head->key);
         preorder(head->left);
         preorder(head->right);
     }
@@ -78,15 +76,15 @@ int main()
 {
     struct node *head = malloc(sizeof(struct node));
     head = NULL;
-    head = insert(10, 640, head);
-    head = insert(5, 100, head);
-    head = insert(3, 150, head);
-    head = insert(4, 125, head);
-    head = insert(7, 700, head);
-    head = insert(11, 500, head);
-    head = insert(9, 230, head);
-    head = insert(2, 560, head);
-    head = insert(6, 580, head);
-    head = insert(8, 780, head);
+    head = insert(10, head);
+    head = insert(5, head);
+    head = insert(3, head);
+    head = insert(4, head);
+    head = insert(7, head);
+    head = insert(11, head);
+    head = insert(9, head);
+    head = insert(2, head);
+    head = insert(6, head);
+    head = insert(8, head);
     preorder(head);
 }
